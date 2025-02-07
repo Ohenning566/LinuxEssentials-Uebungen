@@ -1,4 +1,4 @@
-#Übungen linux essentials
+# Übungen linux essentials
 
 ## 01
 
@@ -67,11 +67,11 @@ zulässig lediglich alphanum + _
 erster Char darf keine Zahl sein 
 
 #### 7. Escpaping
-Setze eine Varaibel `somestring`, die folgende Wert haben soll: `Ich bin der Inhalt der Variablen 'somestring'`. 
+Setze eine Variable `somestring`, die folgende Wert haben soll: `Ich bin der Inhalt der Variablen 'somestring'`. 
 Gibt es dafür nur eine Möglichkeit oder mehrere?
 --
 `somestring="Ich bin der Inhalt der Variablen 'somestring'"`
-
+`somestring=Ich\ bin\ der\ Inhalt\ der\ Variablen\ \'somestring\'`
 
 #### 8. Variablen in Variablen
 Erstellt eine Variable namens `mein_home` und weise ihr den Wert der Umgebungsvariable `HOME` zu.
