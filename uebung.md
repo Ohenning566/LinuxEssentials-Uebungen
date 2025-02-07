@@ -131,12 +131,9 @@ Erstellt zwei Variablen `zahl1` und `zahl2` und weist ihnen beliebige Zahlenwert
 Führt nun eine Addition der beiden Variablen durch und speichert das Ergebnis in einer neuen Variable namens `summe`. 
 Gebt den Wert der Variablen `summe` auf der Konsole aus.
 
->`z1=4`
-
->`z2=3`
-
->`summe=$(( $z1+$z2 ))`
-
+>`z1=4`  
+>`z2=3`  
+>`summe=$(( $z1+$z2 ))`  
 >`echo $summe`
 
 ### Hinweise
