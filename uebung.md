@@ -6,7 +6,7 @@
 ### 1. Einfache Variable setzen und ausgeben
 
 Setze eine Variable `name` mit deinem Namen als Wert und gib sie mit `echo` aus.
---
+
 
 `name=Halo`
 
