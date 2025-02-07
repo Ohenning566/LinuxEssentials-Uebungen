@@ -7,32 +7,26 @@
 
 Setze eine Variable `name` mit deinem Namen als Wert und gib sie mit `echo` aus.
 
-
-`name=Halo`
-
-`$name`
+>`name=Halo`  
+>`$name`
 
 ### 2. Variable in einer anderen Shell nutzen
 
 Setze eine Variable `test_var` und überprüfe, ob sie in einer komplett neu gestarteten Shell oder in einer Subshell 
 verfügbar ist.
---
 
-*nein*
+>*nein*
 
 ### 3. Umgebungsvariable exportieren
 
 Setze eine Variable `my_var` mit dem Wert `hello` und exportiere sie, sodass sie auch in Subshells verfügbar ist. 
 Ist diese Variable jetzt auch in einer komplett neu gestarteten Shell verfügbar?
---
 
-`my_var=hello`
 
-`export my_var`
-
-oder
-
-`export my_var=hello`
+>`my_var=hello`  
+>`export my_var`  
+oder  
+>`export my_var=hello`
  
 ### 4. Variable in einer Zeile setzen und nutzen
 
