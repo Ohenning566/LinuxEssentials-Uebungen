@@ -33,7 +33,7 @@ Füge eine Datei zu einem bestehenden Archiv hinzu.
 ## Übung 4: Archiv extrahieren
 Entpacke ein `tar`-Archiv.
 
-1. Lösche die ursprünglichen `file1.txt`, `file2.txt` und `file3.txt`.
+1. Lösche die ursprünglichen `file1.txt`, `file2.txt`, `file3.txt` und `file4.txt`.
 2. Extrahiere alle Dateien aus `backup.tar`.
 3. Prüfe, ob die Dateien korrekt wiederhergestellt wurden.
 
@@ -57,9 +57,9 @@ Erstelle ein Archiv, das ein ganzes Verzeichnis enthält.
 2. Erstelle ein `tar`-Archiv, das das gesamte Verzeichnis `mydir` enthält.
 3. Überprüfe den Inhalt des Archivs.
 
-> mkdir Mydir
-> touch Mydir/file{1..9}.txt
-> tar -cf archiv2.tar Mydir
+> mkdir Mydir  
+> touch Mydir/file{1..9}.txt  
+> tar -cf archiv2.tar Mydir  
 
 ## Übung 7: Archiv mit Dateiattributen erstellen
 Erstelle ein `tar`-Archiv unter Beibehaltung der Dateiattribute.
@@ -77,26 +77,34 @@ Erstelle ein Archiv von Dateien, die seit einer bestimmten Zeit geändert wurden
 2. Erstelle ein `tar`-Archiv, das nur die geänderten Dateien enthält.
 3. Überprüfe den Archivinhalt.
 
->  
+> touch Mydir/file9.txt  
+> tar -uf archiv2.tar Mydir/* (--verbose)  
+> tar -tf archiv2.tar  
 
 ## Übung 9: Beschädigtes Archiv überprüfen
 Überprüfe ein `tar`-Archiv auf Fehler.
 
-1. Erstelle ein `tar`-Archiv.
+1. Erstelle ein `tar`-Archiv und Simuliere eine Beschädigung, indem du einige Bytes entfernst:
+```sh
+truncate -s -10 backup.tar
+```
 2. Versuche, es auf Fehler zu überprüfen.
-3. Simuliere eine Beschädigung (z. B. durch eine falsche Bearbeitung) und prüfe es erneut.
 
-> mit `nano` das 4 Byte gegen ein Leerzeichen austauschen  
 > tar -tf archiv.tar   
 > >> "tar: Das sieht nicht wie ein tar-Archiv aus."  
 > >> "springe zum nächsten Kopfteil"  
-> >> es folgt die nächtste Datei  
+> >> *es folgt die nächtste Datei*  
 
 ## Übung 10: Archiv ohne bestimmte Dateien erstellen
 Erstelle ein Archiv, das bestimmte Dateien oder Dateitypen ausschließt.
 
->  
-
 1. Erstelle verschiedene Dateitypen (`.txt`, `.log`, `.cfg`).
 2. Erstelle ein `tar`-Archiv, das alle Dateien außer `.log`-Dateien enthält.
 3. Überprüfe den Inhalt des Archivs, um sicherzustellen, dass `.log`-Dateien fehlen.
+
+> echo TestLogText > file1.log  
+> echo TesConfig > config.cfg  
+> mkdir ../tardir  
+> tar -cf ../tardir/archiv.tar *.!(log)  
+> *testen mit:*  
+> tar -tf ../tardir/archiv.tar   
