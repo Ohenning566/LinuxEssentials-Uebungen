@@ -30,21 +30,25 @@ Verwende `gzip`, `bzip2` und `xz`, um eine einzelne Datei direkt zu komprimieren
 time <kommando>
 ```
 
-> Bigfile ~ 1 GiB z=zeros , r=random  
-> gzip bigfile_r.data 		46,605 s  
-> gzip bigfile_z.data 	         9,065 s (-c ~ 8,758 s)  
-> gunzip bigfile_r.data.gz       9,792s  
-> gunzip bigfile_z.data.gz       6,407s  
->   
-> bzip2 bigfile_r.data        3m10,476s  
-> bzip2 bigfile_z.data        0m12,713s  
-> bunzip2 bigfile_r.data.bz2  1m53,027s  
-> bunzip2 bigfile_z.data.bz2     5,099s  
->   
-> xz -e bigfile_r.data 	     10m54,508s  
-> xz -e bigfile_z.data          51,437s  
-> unxz  bigfile_r.data.xz        5,820s  
-> unxz  bigfile_z.data.xz        1,908s  
+ Bigfile ~ 1 GiB z=zeros , r=random  
+
+| Kommando | zeit |
+|----------|------|
+| gzip bigfile_r.data |		46,605 s |
+| gzip bigfile_z.data 	     |    9,065 s |
+| gunzip bigfile_r.data.gz   |    9,792s | 
+| gunzip bigfile_z.data.gz   |    6,407s | 
+| | |
+| bzip2 bigfile_r.data      |  3m10,476s | 
+| bzip2 bigfile_z.data      |  0m12,713s | 
+| bunzip2 bigfile_r.data.bz2 | 1m53,027s | 
+| bunzip2 bigfile_z.data.bz2 |    5,099s | 
+| | | 
+| xz -e bigfile_r.data 	  |   10m54,508s | 
+| xz -e bigfile_z.data    |      51,437s | 
+| unxz  bigfile_r.data.xz |       5,820s | 
+| unxz  bigfile_z.data.xz |       1,908s | 
+
 
 3. Wie gross sind die resultierenden Dateien? 
 ```bash
@@ -75,20 +79,41 @@ du -h <datei>
 
 ```
 
-
 4. Was schliesst ihr daraus bezüglich der einzelenen Algorithmen?
+
+> Gzip ist am wenigsten effektiv, offenbar das älteste Programm.  
+> Bzip2 ist offenbar auf maximale Kompression optimiert,  
+> xz ist auf Entpackgeschwindigkeit optimiert.  
 
 ### 2. Erstellen eines Tar-Archivs ohne Kompression
 Erstelle ein Tar-Archiv `backup.tar`, das alle Dateien aus dem aktuellen Verzeichnis enthält.
 
+> Lösung im Sinne der Aufgabe: tar -cf ../backup.tar && mv ../backup.tar .  
+> tar -cf backup.tar *.data  
+
 ### 3. Erstellen eines komprimierten Tar-Archivs mit gzip
-Erstelle ein gzip-komprimiertes Archiv `backup.tar.gz` aus dem aktuellen Verzeichnis und überprüfe die Dateigröße.
+Erstelle ein gzip-komprimiertes Archiv `backup.tar.gz` aus dem aktuellen Verzeichnis und überprüfe 
+die Dateigröße.
+
+> gzip -k bigfile.tar  
+> 1,1G 11. Feb 15:10 bigfile.tar.gz  
 
 ### 4. Erstellen eines komprimierten Tar-Archivs mit bzip2
 Erstelle ein bzip2-komprimiertes Archiv `backup.tar.bz2` und vergleiche die Dateigröße mit der gzip-Version.
 
+> bzip2 -k bigfile.tar  
+> 1,1G 11. Feb 15:10 bigfile.tar.bz2  
+
 ### 5. Erstellen eines komprimierten Tar-Archivs mit xz
 Erstelle ein xz-komprimiertes Archiv `backup.tar.xz` und vergleiche die Dateigröße mit gzip und bzip2.
+
+> xz -k bigfile.tar  
+> 1,1G 11. Feb 15:10 bigfile.tar.xz  
+```
+1078496661 11. Feb 15:10 bigfile.tar.bz2
+1074958785 11. Feb 15:10 bigfile.tar.gz
+1073952600 11. Feb 15:10 bigfile.tar.xz
+```
 
 ### 6. Dekomprimieren eines gzip-Archivs
 Entpackt die einzelnen Archive und überprüft den Inhalt.
@@ -97,17 +122,25 @@ Entpackt die einzelnen Archive und überprüft den Inhalt.
 Was passiert, wenn du eine Datei mit `gzip` komprimierst und anschließend das komprimierte Ergebnis 
 erneut mit `gzip` bearbeitest?
 
+>  
+
 ### 8. Fehlersuche: Falsche Dateiendung
 Was passiert, wenn du eine Datei mit `bzip2` komprimierst, sie aber fälschlicherweise mit `tar -xf` entpacken 
 möchtest? Wie kannst du den Fehler erkennen und beheben?
 
->  
+> *tar -xf bigfile.tar.bz2* --verbose  
+> wenn die bzip-Datei ein tar enthält, wird entkomprimiert und ausgepackt.  
+
 
 ### 9. Entpacken ohne ursprüngliches Format zu kennen
 Wie kannst du eine komprimierte Datei entpacken, ohne zu wissen, welches Kompressionsformat verwendet wurde?
 
-> 1. file bigfile_r.data.bz2   
-> 2. 
+> 1a. file bigfile_r.data.bz2   
+> 1b. file bigfile.tar.bz2  
+> 2. "richtigen (ent)packer wählen"  
+>>  2a bunzip2 bigfile_r.data.bz2  
+>>  2b tar -xvjf bigfile.tar.bz2  
+
 
 ### 10. Versuch, ein Verzeichnis mit gzip, bzip2 oder xz zu komprimieren
 Versuche, ein Verzeichnis direkt mit `gzip`, `bzip2` oder `xz` zu komprimieren, ohne `tar`. 
