@@ -31,21 +31,20 @@ time <kommando>
 ```
 
 > Bigfile ~ 1 GiB z=zeros , r=random  
-> gzip bigfile_r.data 46,605 s  
-> gzip bigfile_z.data  9,065 s (-c ~ 8,758 s)  
-> gunzip bigfile_r.data.gz 9,792s  
-> gunzip bigfile_z.data.gz 6,407s  
+> gzip bigfile_r.data 		46,605 s  
+> gzip bigfile_z.data 	         9,065 s (-c ~ 8,758 s)  
+> gunzip bigfile_r.data.gz       9,792s  
+> gunzip bigfile_z.data.gz       6,407s  
 >   
-> bzip2 bigfile_r.data 3m10,476s  
-> bzip2 bigfile_z.data 0m12,713s  
-> bunzip2 bigfile_r.data.bz2 1m53,027s  
-> bunzip2 bigfile_z.data.bz2 5,099s  
+> bzip2 bigfile_r.data        3m10,476s  
+> bzip2 bigfile_z.data        0m12,713s  
+> bunzip2 bigfile_r.data.bz2  1m53,027s  
+> bunzip2 bigfile_z.data.bz2     5,099s  
 >   
-> xz bigfile_r.data   
-> xz bigfile_z.data   
-
- 
-
+> xz -e bigfile_r.data 	     10m54,508s  
+> xz -e bigfile_z.data          51,437s  
+> unxz  bigfile_r.data.xz        5,820s  
+> unxz  bigfile_z.data.xz        1,908s  
 
 3. Wie gross sind die resultierenden Dateien? 
 ```bash
@@ -54,12 +53,26 @@ du -h <datei>
 ```
 
 ```
-oliver@debian:~/Work/Ueb07$ ls -l
-insgesamt 3146932
--rw-r--r-- 1 oliver oliver 1073741824 11. Feb 11:35 bigfile_r.data
--rw-r--r-- 1 oliver oliver 1073915777 11. Feb 11:07 bigfile_r.data.gz
--rw-r--r-- 1 oliver oliver 1073741824 11. Feb 11:24 bigfile_z.data
--rw-r--r-- 1 oliver oliver    1042084 11. Feb 11:32 bigfile_z.data.gz
+~/Work/Ueb07$ ls -lh
+ 1,0G 11. Feb 11:35 bigfile_r.data
+ 1,1G 11. Feb 11:35 bigfile_r.data.bz2
+ 1,1G 11. Feb 11:07 bigfile_r.data.gz
+ 1,1G 11. Feb 11:35 bigfile_r.data.xz
+ 1,0G 11. Feb 11:24 bigfile_z.data
+  785 11. Feb 11:24 bigfile_z.data.bz2
+1018K 11. Feb 11:32 bigfile_z.data.gz
+ 153K 11. Feb 11:24 bigfile_z.data.xz
+
+~/Work/Ueb07$ du *
+1048580 bigfile_r.data
+1053208 bigfile_r.data.bz2
+1048752 bigfile_r.data.gz
+1048632 bigfile_r.data.xz
+1048580 bigfile_z.data
+4       bigfile_z.data.bz2
+1020    bigfile_z.data.gz
+156     bigfile_z.data.xz
+
 ```
 
 
@@ -93,7 +106,8 @@ möchtest? Wie kannst du den Fehler erkennen und beheben?
 ### 9. Entpacken ohne ursprüngliches Format zu kennen
 Wie kannst du eine komprimierte Datei entpacken, ohne zu wissen, welches Kompressionsformat verwendet wurde?
 
->  
+> 1. file bigfile_r.data.bz2   
+> 2. 
 
 ### 10. Versuch, ein Verzeichnis mit gzip, bzip2 oder xz zu komprimieren
 Versuche, ein Verzeichnis direkt mit `gzip`, `bzip2` oder `xz` zu komprimieren, ohne `tar`. 
