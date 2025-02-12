@@ -34,18 +34,20 @@ time <kommando>
 
 | Kommando | Zeit |
 |----------|-----:|
-| `gzip bigfile_r.data` |		46,605 s |
-| gzip bigfile_z.data 	     |    9,065 s |
-| gunzip bigfile_r.data.gz   |    9,792s | 
+| `gzip bigfile_r.data` |	`46,605 s` |
+| `gzip bigfile_z.data 	     |    9,065 s` |
+`| gunzip bigfile_r.data.gz   |    9,792s |` 
 | gunzip bigfile_z.data.gz   |    6,407s | 
-| | |
-| | |
+
+| Kommando | Zeit |
+|----------|-----:|
 | bzip2 bigfile_r.data      |  3m10,476s | 
 | bzip2 bigfile_z.data      |  0m12,713s | 
 | bunzip2 bigfile_r.data.bz2 | 1m53,027s | 
 | bunzip2 bigfile_z.data.bz2 |    5,099s | 
-|||
-|||
+
+| Kommando | Zeit |
+|----------|-----:|
 | xz -e bigfile_r.data 	  |   10m54,508s | 
 | xz -e bigfile_z.data    |      51,437s | 
 | unxz  bigfile_r.data.xz |       5,820s | 
