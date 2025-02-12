@@ -94,28 +94,45 @@ Erstelle ein Tar-Archiv `backup.tar`, das alle Dateien aus dem aktuellen Verzeic
 > tar -cf backup.tar *.data  
 
 ### 3. Erstellen eines komprimierten Tar-Archivs mit gzip
-Erstelle ein gzip-komprimiertes Archiv `backup.tar.gz` aus dem aktuellen Verzeichnis und überprüfe 
-die Dateigröße.
+Erstellt ein gzip-komprimiertes Archiv `backup.tar.gz` aus dem aktuellen 
+Verzeichnis und überprüfe die Dateigröße. Dazu könnt ihr natürlich das in Übung 2 
+erstellte Archiv einfach mit `gzip` komprimieren. Das sind aber zwei Schritte, die 
+durchgeführt werden müssen. Vielleicht geht das ja auch in einem Schritt. Kann 
+`tar` das etwa direkt? Sucht doch in der Manpage von `tar` mal nach dem Stichwort 
+`Compression`.
 
 > gzip -k bigfile.tar  
 > 1,1G 11. Feb 15:10 bigfile.tar.gz  
+>   
+> tar -czvf bigfile.tar.gz *.data    
 
 ### 4. Erstellen eines komprimierten Tar-Archivs mit bzip2
-Erstelle ein bzip2-komprimiertes Archiv `backup.tar.bz2` und vergleiche die Dateigröße mit der gzip-Version.
+Erstellt ein bzip2-komprimiertes Archiv `backup.tar.bz2`, welches auch die 
+drei `bigfile` Dateien enthalten soll in einem Rutsch mit `tar` und vergleicht 
+die Dateigröße mit der gzip-Version.
 
 > bzip2 -k bigfile.tar  
 > 1,1G 11. Feb 15:10 bigfile.tar.bz2  
+>   
+> tar -cjvf bigfile.tar.bz2 *.data   
 
 ### 5. Erstellen eines komprimierten Tar-Archivs mit xz
-Erstelle ein xz-komprimiertes Archiv `backup.tar.xz` und vergleiche die Dateigröße mit gzip und bzip2.
+Erstelle ein xz-komprimiertes Archiv `backup.tar.xz` und vergleiche die 
+Dateigröße mit gzip und bzip2.
 
 > xz -k bigfile.tar  
 > 1,1G 11. Feb 15:10 bigfile.tar.xz  
+>   
+> tar -cJvf bigfile.tar.xz *.data   
+
+
 ```
 1078496661 11. Feb 15:10 bigfile.tar.bz2
 1074958785 11. Feb 15:10 bigfile.tar.gz
 1073952600 11. Feb 15:10 bigfile.tar.xz
 ```
+
+
 
 ### 6. Dekomprimieren eines gzip-Archivs
 Entpackt die einzelnen Archive und überprüft den Inhalt.
