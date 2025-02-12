@@ -34,10 +34,10 @@ time <kommando>
 
 | Kommando | Zeit |
 |----------|-----:|
-| `gzip bigfile_r.data` |	`46,605 s` |
-| `gzip bigfile_z.data 	     |    9,065 s` |
-`| gunzip bigfile_r.data.gz   |    9,792s |` 
-| gunzip bigfile_z.data.gz   |    6,407s | 
+| `gzip bigfile_r.data`|       `46,605 s`|
+| `gzip bigfile_z.data`     |   `9,065 s`|
+| `gunzip bigfile_r.data.gz`   | `9,792s`| 
+| `gunzip bigfile_z.data.gz`  |  `6,407s`| 
 
 | Kommando | Zeit |
 |----------|-----:|
