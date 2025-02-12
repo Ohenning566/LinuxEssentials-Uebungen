@@ -89,8 +89,19 @@ du -h <datei>
 > Bzip2 ist offenbar auf maximale Kompression optimiert,  
 > xz ist auf Entpackgeschwindigkeit optimiert.  
 
+5. Ist `xz` am langsamsten, also am "schlechtesten"? Oder solltet ihr euch vielleicht auch noch das Verhalten beim Dekomprimieren anschauen? Testet doch auch das mal mit dem Kommando `time`.
+6. Mit welchem Hintergrund wurde also `xz` entwickelt? Es ist wie gesagt der neuste der drei Komprimierungsalgorithmen.
+7. Löscht vor den anderen Übungen die komprimierten Dateien, so dass nur noch die drei unkomprimierten Dateien mit der Endung `.data` im Verzeichnis übrig bleiben.
+
 ### 2. Erstellen eines Tar-Archivs ohne Kompression
 Erstelle ein Tar-Archiv `backup.tar`, das alle Dateien aus dem aktuellen Verzeichnis enthält.
+
+[!NOTE]
+Wenn euch die Komprimierung und Dekomprimierung mit den drei 1GB grossen Dateien zu lange dauert, könnt ihr auch z.B. zwei andere Dateien mit jeweils 512MG erstellen und diese für die folgenden Übungen nutzen:
+```bash
+dd if=/dev/zero of=mediumfile1.data bs=1M count=512
+dd if=/dev/zero of=mediumfile2.data bs=1M count=512
+```
 
 > Lösung im Sinne der Aufgabe: tar -cf ../backup.tar && mv ../backup.tar .  
 > tar -cf backup.tar *.data  
@@ -106,27 +117,23 @@ durchgeführt werden müssen. Vielleicht geht das ja auch in einem Schritt. Kann
 > gzip -k bigfile.tar  
 > 1,1G 11. Feb 15:10 bigfile.tar.gz  
 >   
-> tar -czvf bigfile.tar.gz *.data    
+> tar -czf bigfile.tar.gz *.data    
 
-### 4. Erstellen eines komprimierten Tar-Archivs mit bzip2
-Erstellt ein bzip2-komprimiertes Archiv `backup.tar.bz2`, welches auch die 
-drei `bigfile` Dateien enthalten soll in einem Rutsch mit `tar` und vergleicht 
-die Dateigröße mit der gzip-Version.
+Dekomprimiert das komprimierte Archiv anschliessend wieder mit `tar`.
+
+> tar -xzf bigfile.tar.gz  
+
+Führt die beiden Schritte Komprimierung und Dekomprimierung auch für die anderen beiden Komprimierungsalgorithmen `bzip2` und `xz` durch. Notiert euch die jeweiligen Optionen.
 
 > bzip2 -k bigfile.tar  
 > 1,1G 11. Feb 15:10 bigfile.tar.bz2  
 >   
 > tar -cjvf bigfile.tar.bz2 *.data   
 
-### 5. Erstellen eines komprimierten Tar-Archivs mit xz
-Erstelle ein xz-komprimiertes Archiv `backup.tar.xz` und vergleiche die 
-Dateigröße mit gzip und bzip2.
-
 > xz -k bigfile.tar  
 > 1,1G 11. Feb 15:10 bigfile.tar.xz  
 >   
 > tar -cJvf bigfile.tar.xz *.data   
-
 
 ```
 1078496661 11. Feb 15:10 bigfile.tar.bz2
@@ -134,18 +141,18 @@ Dateigröße mit gzip und bzip2.
 1073952600 11. Feb 15:10 bigfile.tar.xz
 ```
 
+Wie könnt ihr euch diese merken? Gibt es vielleicht eine Art Eselsbrücke dafür?
+
+> gzip -> ältester 'z'ipper  
+> bzip2 -> effektiver packer, etwa wie 'j'pg für Bilder
+> xz -> großer Bruder von bzip2, also 'J'
+
+### 4. Dekomprimieren der komprimierten Archive mit `tar`
+Muss bei der Dekomprimierung mit `tar` zwingend der jeweilige Algorithmus als Option angegeben werden? Oder gibt es auch andere Möglichkeiten?
+> `nein`
 
 
-### 6. Dekomprimieren eines gzip-Archivs
-Entpackt die einzelnen Archive und überprüft den Inhalt.
-
-### 7. Fehlersuche: Doppelte Kompression
-Was passiert, wenn du eine Datei mit `gzip` komprimierst und anschließend das komprimierte Ergebnis 
-erneut mit `gzip` bearbeitest?
-
->  
-
-### 8. Fehlersuche: Falsche Dateiendung
+### 5. Fehlersuche: Falsche Dateiendung
 Was passiert, wenn du eine Datei mit `bzip2` komprimierst, sie aber fälschlicherweise mit `tar -xf` entpacken 
 möchtest? Wie kannst du den Fehler erkennen und beheben?
 
@@ -153,23 +160,28 @@ möchtest? Wie kannst du den Fehler erkennen und beheben?
 > wenn die bzip-Datei ein tar enthält, wird entkomprimiert und ausgepackt.  
 
 
-### 9. Entpacken ohne ursprüngliches Format zu kennen
+### 6. Entpacken ohne ursprüngliches Format zu kennen
 Wie kannst du eine komprimierte Datei entpacken, ohne zu wissen, welches Kompressionsformat verwendet wurde?
 
+> ` file `  
 > 1a. file bigfile_r.data.bz2   
 > 1b. file bigfile.tar.bz2  
 > 2. "richtigen (ent)packer wählen"  
 >>  2a bunzip2 bigfile_r.data.bz2  
 >>  2b tar -xvjf bigfile.tar.bz2  
 
+### 7. Fehlersuche: Doppelte Kompression
+Was passiert, wenn ihr eine Datei mit `gzip` komprimierst und anschließend das komprimierte Ergebnis erneut mit `gzip` bearbeitest?
 
-### 10. Versuch, ein Verzeichnis mit gzip, bzip2 oder xz zu komprimieren
+Was passiert, wenn ihr eine mit `gzip` komprimierte Datei zusätzlich mit z.B. `xz` komprimiert?
+
+### 8. Versuch, ein Verzeichnis mit gzip, bzip2 oder xz zu komprimieren
 Versuche, ein Verzeichnis direkt mit `gzip`, `bzip2` oder `xz` zu komprimieren, ohne `tar`. 
 Warum funktioniert das nicht direkt, und wie kannst du es richtig machen?
 
 >  
 
-### 12. Komprimierung mit zip
+### 9. Komprimierung mit zip
 Erstelle ein ZIP-Archiv `backup.zip`, das alle Dateien eines Verzeichnisses enthält. 
 Wie unterscheidet sich das Verhalten von `zip` im Vergleich zu `tar` mit gzip? 
 Du kannst auch hier die Kompressionsgeschwindigkeit und resultierende Dateigrösse vergleichen.
