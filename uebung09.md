@@ -20,8 +20,7 @@ Gebt mit `grep` nur die Zeile aus der `/etc/passwd` aus, in der etwas zu eurem r
 > cat /etc/passwd | grep oliver - Useles Use Of Cat - besser :  
 > grep oliver /etc/passwd  
 >> `suche nach regulären Usern`:   
->> filter 4.feld grösser 1000  
->> cat /etc/passwd | grep :/home/  
+>> grep :/home/ /etc/passwd   
  
 ## Übung 3: Nur die Benutzernamen ausgeben
 Gebt mit `cut` ausschliesslich die Login-Namen der Benutzer auf dem System aus.
@@ -29,7 +28,7 @@ Gebt mit `cut` ausschliesslich die Login-Namen der Benutzer auf dem System aus.
 > cat /etc/passwd | cut -d: -f1  
 > cut -d: -f1 /etc/passwd  
 > `Erweiterung der Aufgabe zu :` ** regulären Benutzern **  
-> cat /etc/passwd | grep :/home/ | cut -d: -f1  
+> grep :/home/ /etc/passwd | cut -d: -f1  
 
 ## Übung 4: Die letzten 5 Zeilen der `.bashrc` ausgeben
 Gebt mit `tail` nur die letzten 5 Zeilen der `.bashrc` aus.

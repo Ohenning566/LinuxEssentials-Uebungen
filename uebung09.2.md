@@ -22,9 +22,10 @@ Gebt ausschliesslich die Benutzernamen aus der `/etc/passwd` alphabetisch sortie
 dabei die Anzahl der Zeilen angeben und nicht **händisch** eingegeben werden, sondern über 
 obiges Kommando ermittelt werden:
 
-```bash
+```
+bash
 Anzahl Benutzer, die die BASH nutzen: 
-<anzah>
+<anzahl>
 ```
 > grep -c bash /etc/passwd >> anzahl_user_bash.txt
 
@@ -35,6 +36,7 @@ anschliessend erst die Anzahl. Oder schafft ihr es auch in einem Schritt?
 echo "Anzahl der Benutzer, die die BASH nutzen: " >> anzahl_user_bash.txt ; grep -c bash /etc/passwd >> anzahl_user_bash.txt ```
 
 4. Könnt ihr die Datei vielleicht auch so aussehen lassen?
+
 ```bash
 Anzahl Benutzer, die die BASH nutzen: <anzahl>
 ```
@@ -58,17 +60,37 @@ Namen der Benutzer (also z.B. *Tux Tuxedo*) enthaltenen und keine weiteren Zeich
 
 ## Übung 10: Alle Aliase in der `.bashrc` finden
 1. Gebt mit `grep` alle Zeilen in der `~/.bashrc` aus, in denen etwas zu Aliasen steht.
-2. Schafft ihr es auch, ausschliesslich die Zeilen auszugeben, in denen wirklich konkrete und im System gültige Alias-Definitionen stehen? Eliminiert z.B. alle Zeilen von der Ausgabe, die nur Kommentare sind (also mit einer Raute `#` beginnen). 
-2. Werden denn jetzt wirklich nur Alias-Definitionen angezeigt oder auch noch andere Zeilen? Falls ja, versucht auch diese **nicht** mit auszugeben, so dass ihr letztlich nur Zeilen angezeigt bekommt, in denen wirklich Aliase definiert werden.
-3. Durchsucht nun euer gesamtes Home-Verzeichnis nach gültigen Alias-Definitionen. Erstellt dazu im Vorfeld (falls nicht bereits vorhanden) die Datei `~/.bash_aliases` mit ein paar Alias-Definitionen. Ihr müsst `grep` hier dazu überreden ein **Verzeichnis** zu durchsuchen, nicht nur eine einzelne Datei.
+> grep grep -i Alias .bashrc  
+2. Schafft ihr es auch, ausschliesslich die Zeilen auszugeben, in denen wirklich konkrete und im System 
+gültige Alias-Definitionen stehen? Eliminiert z.B. alle Zeilen von der Ausgabe, die nur Kommentare sind 
+(also mit einer Raute `#` beginnen).
+> grep -i " Alias " .bashrc | grep -v "#"  
+2. Werden denn jetzt wirklich nur Alias-Definitionen angezeigt oder auch noch andere Zeilen? Falls ja, 
+versucht auch diese **nicht** mit auszugeben, so dass ihr letztlich nur Zeilen angezeigt bekommt, in 
+denen wirklich Aliase definiert werden.
+> grep -i " Alias " .bashrc | grep -v "#"  
+3. Durchsucht nun euer gesamtes Home-Verzeichnis nach gültigen Alias-Definitionen. Erstellt dazu im 
+Vorfeld (falls nicht bereits vorhanden) die Datei `~/.bash_aliases` mit ein paar Alias-Definitionen. 
+Ihr müsst `grep` hier dazu überreden ein **Verzeichnis** zu durchsuchen, nicht nur eine einzelne Datei.
+
+> alle `.bash*` Dateien sollen verarbeitet werden, aber in bash_history stehen schlecht filterbare 
+Einträge - zumindest bei manchen Leuten  
+> grep -i "Alias " .bash*[^y] | grep -v "#"  
 
 ## Übung 11: Archiv aller `.bash*`-Dateien erstellen
-Erstellt ein `tar`-Archiv mit allen `.bash*`-Dateien in eurem Home-Verzeichnis. Zählt **gleichzeitig** die Anzahl der im Archiv enthaltenen Dateien.
+Erstellt ein `tar`-Archiv mit allen `.bash*`-Dateien in eurem Home-Verzeichnis. Zählt **gleichzeitig** die 
+Anzahl der im Archiv enthaltenen Dateien.
+
+> tar -cvf backofdotbash.tar .bash* | wc -l  
 
 ## Übung 12: Ermitteln der Anzahl der Prozessoren auf dem System
 Ermittelt über die Datei `/proc/cpuinfo` die Anzahl der Prozessoren eures Rechners.
 
-Schaut euch die Datei dazu im Vorfeld einmal an. Benutzt die Kommandos `grep` und `wc`. Oder geht das auch nur mit `grep`? 
+> grep processor /proc/cpuinfo | wc -l  
+> grep -c processor /proc/cpuinfo  
+
+Schaut euch die Datei dazu im Vorfeld einmal an. Benutzt die Kommandos `grep` und `wc`. Oder geht das 
+auch nur mit `grep`? 
 
 ## Übung 13: Ermitteln der Sieger einer Tombola
 Erstellt eine Datei mit dem Namen `~/mypasswd` auf eurem System mit folgendem Inhalt:
@@ -91,6 +113,17 @@ henry:x:1005:1000:Henry Adams,Accounts Payable,,,Main Office:/home/henry:/bin/ba
 john:x:1006:1000:John Chapel,Accounts Payable,,,Main Office:/home/john:/bin/bash
 ```
 1. Lasst euch alle Benutzer in der Gruppe `1000` anzeigen.
+
+> cut -d: -f1,4 mypasswd | grep 1000 | cut -d: -f1
+
 2. Lasst euch nur die vollen Namen der Benutzer in dieser Gruppe anzeigen.
-3. Ihr sollt nun unter allen Mitgliedern des *Main Office* einen Sieger für eine Tombola ermitteln. Ermittlelt die Vollnamen der Mitglieder des Main Office, sorgt dann dafür, dass euch nur die Vornamen angezeigt werden. Sortiert diese anschliessend zufällig. Lasst euch nun nur die erste Zeile ausgeben und ihr habt euren Gewinner.
-4. Wieviele Leute arbeiten jeweils in `Human Resources`, `Engineering` und `Accounts Payable`? Versucht, die Lösung mit einem einzigen Kommando zu ermitteln. Eventuell ist ja das Kommando `uniq` hier hilfreich.
+
+> cut -d: -f4,5 mypasswd | grep 1000 | cut -d: -f2 | cut -d, -f1
+
+3. Ihr sollt nun unter allen Mitgliedern des *Main Office* einen Sieger für eine Tombola ermitteln. 
+Ermittlelt die Vollnamen der Mitglieder des Main Office, sorgt dann dafür, dass euch nur die Vornamen 
+angezeigt werden. Sortiert diese anschliessend zufällig. Lasst euch nun nur die erste Zeile ausgeben und ihr 
+habt euren Gewinner.
+
+4. Wieviele Leute arbeiten jeweils in `Human Resources`, `Engineering` und `Accounts Payable`? Versucht, 
+die Lösung mit einem einzigen Kommando zu ermitteln. Eventuell ist ja das Kommando `uniq` hier hilfreich.
