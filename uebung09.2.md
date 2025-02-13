@@ -54,6 +54,7 @@ Also alles in einer Zeile anstatt in zwei?
 benutzen und schreibt das Ergebnis in eine Datei. Die Datei soll nachher wirklich nur die 
 Namen der Benutzer (also z.B. *Tux Tuxedo*) enthaltenen und keine weiteren Zeichen.
 
+> grep bash /etc/passwd | cut -d: -f5 | tr -d ,
 
 ## Übung 10: Alle Aliase in der `.bashrc` finden
 1. Gebt mit `grep` alle Zeilen in der `~/.bashrc` aus, in denen etwas zu Aliasen steht.
