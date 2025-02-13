@@ -16,7 +16,9 @@ Zählt die Zeilen in der Datei `/etc/passwd`, um die Anzahl der Benutzer zu best
 ## Übung 2: Bestimmten Benutzer in `/etc/passwd` suchen
 Gebt mit `grep` nur die Zeile aus der `/etc/passwd` aus, in der etwas zu eurem regulären Benutzer steht.
 
-> cat /etc/passwd | grep oliver   
+>[!NOTE]
+> cat /etc/passwd | grep oliver - Useles Use Of Cat - besser :  
+> grep oliver /etc/passwd  
 >> `suche nach regulären Usern`:   
 >> filter 4.feld grösser 1000  
 >> cat /etc/passwd | grep :/home/  
@@ -25,10 +27,9 @@ Gebt mit `grep` nur die Zeile aus der `/etc/passwd` aus, in der etwas zu eurem r
 Gebt mit `cut` ausschliesslich die Login-Namen der Benutzer auf dem System aus.
 
 > cat /etc/passwd | cut -d: -f1  
-> `Erweiterung der Aufgabe zu :` 
-*** regulären Benutzern ***   
+> cut -d: -f1 /etc/passwd  
+> `Erweiterung der Aufgabe zu :` ** regulären Benutzern **  
 > cat /etc/passwd | grep :/home/ | cut -d: -f1  
-
 
 ## Übung 4: Die letzten 5 Zeilen der `.bashrc` ausgeben
 Gebt mit `tail` nur die letzten 5 Zeilen der `.bashrc` aus.
@@ -36,5 +37,8 @@ Gebt mit `tail` nur die letzten 5 Zeilen der `.bashrc` aus.
 > cat ../.bashrc | tail -n5  
 
 ## Übung 5: Die Anzahl der Shells im System ermitteln
-Zählt die in `/etc/passwd` eingetragenen Shell. Wie viele verschiedene gibt es? Eventuell könnten hier die Kommandos `sort` und `uniq` nützlich sein.
+Zählt die in `/etc/passwd` eingetragenen Shell. Wie viele verschiedene gibt es? Eventuell könnten 
+hier die Kommandos `sort` und `uniq` nützlich sein.
+
+> cut -d: -f7 /etc/passwd | uniq -u | wc -l  
 
