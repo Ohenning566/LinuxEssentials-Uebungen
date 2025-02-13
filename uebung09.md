@@ -16,11 +16,11 @@ Zählt die Zeilen in der Datei `/etc/passwd`, um die Anzahl der Benutzer zu best
 ## Übung 2: Bestimmten Benutzer in `/etc/passwd` suchen
 Gebt mit `grep` nur die Zeile aus der `/etc/passwd` aus, in der etwas zu eurem regulären Benutzer steht.
 
-> cat /etc/passwd | grep oliver
->> `suche nach regulären Usern`: 
->> filter 4.feld grösser 1000
->> cat /etc/passwd | grep :/home/
-
+> cat /etc/passwd | grep oliver   
+>> `suche nach regulären Usern`:   
+>> filter 4.feld grösser 1000  
+>> cat /etc/passwd | grep :/home/  
+ 
 ## Übung 3: Nur die Benutzernamen ausgeben
 Gebt mit `cut` ausschliesslich die Login-Namen der Benutzer auf dem System aus.
 
