@@ -42,4 +42,4 @@ hier die Kommandos `sort` und `uniq` nützlich sein.
 
 > cut -d: -f7 /etc/passwd | uniq -u | wc -l  
 
-*** echo $? - Fehlercode ***   
+** echo $? - Fehlercode **   
