@@ -25,7 +25,8 @@ Gebt mit `grep` nur die Zeile aus der `/etc/passwd` aus, in der etwas zu eurem r
 Gebt mit `cut` ausschliesslich die Login-Namen der Benutzer auf dem System aus.
 
 > cat /etc/passwd | cut -d: -f1  
-> `Erweiterung der Aufgabe zu :`** regulären Benutzer**   
+> `Erweiterung der Aufgabe zu :` 
+*** regulären Benutzern ***   
 > cat /etc/passwd | grep :/home/ | cut -d: -f1  
 
 
