@@ -24,15 +24,15 @@ Gebt mit `grep` nur die Zeile aus der `/etc/passwd` aus, in der etwas zu eurem r
 ## Übung 3: Nur die Benutzernamen ausgeben
 Gebt mit `cut` ausschliesslich die Login-Namen der Benutzer auf dem System aus.
 
-> cat /etc/passwd | cut -d: -f1
-> `Erweiterung der Aufgabe zu :`** regulären Benutzer** 
-> cat /etc/passwd | grep :/home/ | cut -d: -f1
+> cat /etc/passwd | cut -d: -f1  
+> `Erweiterung der Aufgabe zu :`** regulären Benutzer**   
+> cat /etc/passwd | grep :/home/ | cut -d: -f1  
 
 
 ## Übung 4: Die letzten 5 Zeilen der `.bashrc` ausgeben
 Gebt mit `tail` nur die letzten 5 Zeilen der `.bashrc` aus.
 
-> cat ../.bashrc | tail -n5
+> cat ../.bashrc | tail -n5  
 
 ## Übung 5: Die Anzahl der Shells im System ermitteln
 Zählt die in `/etc/passwd` eingetragenen Shell. Wie viele verschiedene gibt es? Eventuell könnten hier die Kommandos `sort` und `uniq` nützlich sein.
