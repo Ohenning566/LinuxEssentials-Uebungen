@@ -11,6 +11,9 @@ Legt einen neuen Benutzer `testuser` ohne weitere Optionen an und prüft, was pa
 - Könnt ihr euch als dieser Benutzer anmelden (vorausgesetzt, ihr seit nicht `root`)?
 - Was steht in `/etc/passwd` und `/etc/shadow` für diesen Benutzer?
 
+> Home wir zunächst nur in `/etc/passwd` abgelegt, jedoch noch nicht als Verzeichnis angelegt  
+> in `/etc/shadow` wird im 2ten Feld ein `!` hinterlegt  
+
 ## Übung 2: Benutzer mit Home-Verzeichnis anlegen
 Einen Benutzer `user1` mit automatisch erstelltem Home-Verzeichnis und darin enthaltenen Standarddateien anlegen.
 
@@ -19,11 +22,20 @@ Einen Benutzer `user1` mit automatisch erstelltem Home-Verzeichnis und darin ent
 - Welche Dateien sind darin enthalten?
 - Wo kommen diese Datein her?
 
+> `$BASE_DIR+LOGIN`  
+> üblicherweise ist $BASE_DIR = /home  
+> oder  
+> `$HOME_DIR`
+> useradd -m legt das Verzeichnis an  
+> `/etc/skel`  
+
 ## Übung 3: Benutzer mit individuellem Home-Verzeichnis
 Benutzer `user2` mit einem Home-Verzeichnis mit Standarddateien angeben, das unter `/srv` und nicht unter `/home` liegt.
 
 🔹 **Fragen:**
 - Was passiert, wenn man sich mit `su - user2` anmeldet?
+
+> nach Vergabe eines Passwortes - normale Funktion , auch ls -la .. etc
 
 ## Übung 4: Benutzer mit BASH als Login-Shell anlegen
 Benutzer `user3` mit der BASH als Login-Shell anlegen.
@@ -31,6 +43,11 @@ Benutzer `user3` mit der BASH als Login-Shell anlegen.
 🔹 **Fragen:**
 - Welche Shell wird standardmäßig verwendet, wenn `-s` nicht angegeben wird?
 - Wie kann `user3` die Shell später ändern?
+
+> `$SHELL` aus `/etc/default/useradd`  
+> z.B. /bin/sh  
+> `chsh -s /bin/shell` da /etc/passwd readonly ist  
+
 
 ## Übung 5: Benutzer mit Kommentar (GECOS-Feld) anlegen
 Beim Anlegen eines Benutzers `user7` zusätzlich den Namen `User Sieben, Abteilung GFN` speichern.
@@ -44,6 +61,9 @@ Sorgt nachträglich dafür, dass ihr ein Passwort für einen der neu angelegten 
 
 🔹 **Fragen:**
 - Geht das mit dem Kommando `useradd`? Oder brauchen wir dazu ein anderes Kommando?
+
+> `passwd username`  
+> ` useradd -m -s /bin/bash -p "$(openssl passwd -6 '1234')" newbie003 `  
 
 ## Übung 7: Benutzer einer bestimmten Gruppe zuweisen
 Einen Benutzer `user5` anlegen und direkt der Gruppe `games` zuweisen.
@@ -59,11 +79,17 @@ Den Benutzer `user3` samt Home-Verzeichnis löschen.
 - Was passiert mit `/home/user3`?
 - Was passiert, wenn `-r` weggelassen wird?
 
+> userdel -r username  
+> home wird gelöscht  
+> ohne -r bleibt das homeverzeichnis mit UID GID bestehen   
+
 ## Übung 9: Benutzer mit bestimmter Benutzer-ID (UID) anlegen
 Eine feste UID (`1500`) für einen neu angelegten Benutzer `user4` bestimmen.
 
 🔹 **Fragen:**
 - Welche UID hat ein neuer Benutzer ohne diese Option?
+
+> die nächste freie nach 1000  
 
 ## Übung 10: Benutzer mit Ablaufdatum erstellen
 Einen Benutzer `user6` anlegen, dessen Konto am 31.12.2025 abläuft.
