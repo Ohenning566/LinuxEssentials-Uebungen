@@ -60,7 +60,7 @@ Namen der Benutzer (also z.B. *Tux Tuxedo*) enthaltenen und keine weiteren Zeich
 
 ## Übung 10: Alle Aliase in der `.bashrc` finden
 1. Gebt mit `grep` alle Zeilen in der `~/.bashrc` aus, in denen etwas zu Aliasen steht.
-> grep grep -i Alias .bashrc  
+> grep -i Alias .bashrc  
 2. Schafft ihr es auch, ausschliesslich die Zeilen auszugeben, in denen wirklich konkrete und im System 
 gültige Alias-Definitionen stehen? Eliminiert z.B. alle Zeilen von der Ausgabe, die nur Kommentare sind 
 (also mit einer Raute `#` beginnen).
