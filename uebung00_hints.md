@@ -1,14 +1,17 @@
 # Hints
 
-'$?' - rückgabecode  
-'$0' - Name des aufgerufenen Scripts
+`$?` - rückgabecode  
+`$0` - Name des aufgerufenen Scripts
 
-Variablensubstitution  
-'$foo' in Langform '${foo}'
+Variablensubstitution :  
+`$foo` in Langform '${foo}'
 
-Kommandosubstitution  
+Kommandosubstitution :  
 date +%d.%m.%Y  
-today=$(date +%d.%m.%Y) - Kommando innerhalb der Klammern wird ausgeführt und nach außen gegeben
+today=$(date +%d.%m.%Y)  
+> Das Kommando wird erst innerhalb der Klammern ausgeführt und dann 
+nach außerhalb der Klammer zurückgegeben. In diesem 
+Fall in der Variable `today` gespeichert  
 
 # Links
 
